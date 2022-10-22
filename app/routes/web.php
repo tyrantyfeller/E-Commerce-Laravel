@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthLoginController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/* Rotas de Login */
-Route::get('/', [AuthLoginController::class, 'dashboard'])->name('dashboard');
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/* Rotas de Home */
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
