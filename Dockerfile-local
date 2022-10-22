@@ -1,0 +1,118 @@
+FROM alpine:edge
+
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
+# Add basics first
+RUN apk update && apk add \
+  bash \
+  apache2 \
+  php7-apache2 \
+  curl \
+  unzip \
+  ca-certificates \
+  wget \
+  openssl \
+  openssh \
+  git \
+  npm \
+  php7 \
+  php7-phar \
+  php7-json \
+  php7-iconv \
+  php7-openssl \
+  tzdata \
+  openntpd \
+  nano
+
+RUN update-ca-certificates
+
+# Add node
+ENV NODE_VERSION v13.12.0
+RUN wget https://nodejs.org/download/release/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.gz \
+    && tar -C /usr/local/bin -xzvf node-$NODE_VERSION-linux-x64.tar.gz \
+    && rm node-$NODE_VERSION-linux-x64.tar.gz
+
+# Add dockerize
+ENV DOCKERIZE_VERSION v0.6.1
+RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
+    && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+
+# Setup apache and php
+RUN apk add \
+	php7-ftp \
+#	php7-xdebug \
+#   php7-mcrypt \
+	php7-mbstring \
+	php7-soap \
+	php7-gmp \
+	php7-pdo_odbc \
+	php7-dom \
+	php7-pdo \
+	php7-zip \
+	php7-mysqli \
+	php7-sqlite3 \
+	php7-pdo_pgsql \
+	php7-bcmath \
+	php7-gd \
+	php7-odbc \
+	php7-pdo_mysql \
+	php7-pdo_sqlite \
+	php7-gettext \
+	php7-xml \
+	php7-xmlreader \
+	php7-xmlwriter \
+	php7-tokenizer \
+	php7-xmlrpc \
+	php7-bz2 \
+	php7-pdo_dblib \
+	php7-curl \
+	php7-ctype \
+	php7-session \
+#	php7-redis \
+	php7-exif \
+	php7-intl \
+	php7-fileinfo \
+	php7-ldap
+#   php7-apcu
+
+# Problems installing in above stack
+RUN apk add php7-simplexml
+
+RUN cp /usr/bin/php7 /usr/bin/php \
+  && rm -f /var/cache/apk/*
+
+# Add apache to run and configure
+RUN sed -i "s/#LoadModule\ rewrite_module/LoadModule\ rewrite_module/" /etc/apache2/httpd.conf \
+  && sed -i "s/#LoadModule\ session_module/LoadModule\ session_module/" /etc/apache2/httpd.conf \
+  && sed -i "s/#LoadModule\ session_cookie_module/LoadModule\ session_cookie_module/" /etc/apache2/httpd.conf \
+  && sed -i "s/#LoadModule\ session_crypto_module/LoadModule\ session_crypto_module/" /etc/apache2/httpd.conf \
+  && sed -i "s/#LoadModule\ deflate_module/LoadModule\ deflate_module/" /etc/apache2/httpd.conf \
+  && sed -i "s#^DocumentRoot \".*#DocumentRoot \"/usr/php/laravel/public\"#g" /etc/apache2/httpd.conf \
+  && sed -i "s#/var/www/localhost/htdocs#/usr/php/laravel/public#" /etc/apache2/httpd.conf \
+  && printf "\n<Directory \"/usr/php/laravel/public\">\n\tAllowOverride All\n</Directory>\n" >> /etc/apache2/httpd.conf
+
+RUN mkdir bootstrap
+
+ADD .docker/start.sh /bootstrap/
+RUN chmod +x /bootstrap/start.sh
+
+# ADD .docker/create.sh /bootstrap/
+# RUN chmod +x /bootstrap/create.sh
+
+ADD .docker/local.sh /bootstrap/
+RUN chmod +x /bootstrap/local.sh
+
+# Add Composer
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
+
+WORKDIR /usr/php/laravel
+
+ENV PHP_SHORT_OPEN_TAG=On
+ENV PHP_ERROR_REPORTING=E_ALL
+ENV PHP_DISPLAY_ERRORS=On
+ENV PHP_HTML_ERRORS=On
+ENV PHP_XDEBUG_ENABLED=true
+
+EXPOSE 80

@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  mysql:
+    image: mysql:5.7.29
+    container_name: draculartes-mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: draculartes-db
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - default
+
+  app:
+    image: draculartes-app:dev
+    container_name: draculartes-app
+    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 40s /bootstrap/local.sh
+    build:
+      context: ./
+      dockerfile: Dockerfile-local
+    environment:
+      - APACHE_SERVER_NAME=localhost
+    ports:
+      - 8080:80
+    networks:
+      - default
+    depends_on:
+      - mysql
+    volumes:
+      - ./app:/usr/php/laravel
+#      - ./php/uploads.ini:/etc/php7/conf.d/uploads.ini
+    cap_add:
+      - SYS_TIME
+      - SYS_NICE
+
+volumes:
+  mysql:
+
+networks:
+  default:
