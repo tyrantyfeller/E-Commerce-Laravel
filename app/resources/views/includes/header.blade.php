@@ -23,7 +23,7 @@
                 {{-- Login --}}
                 <div class="col-4 text-center">
                     <a class="btn btn-sm btn-outline-secondary" href="#" style="margin: 10px;"><i class="bi bi-person"></i> Login</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="#"><i class="bi bi-cart"></i> Carrinho</i></a>
+                    <a class="btn btn-sm btn-outline-secondary" href="#"><i class="bi bi-cart"></i> Carrinho</a>
                 </div>
 
             </div>
