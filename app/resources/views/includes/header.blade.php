@@ -28,13 +28,32 @@
 
             </div>
         </header>
-
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
     </div>
 
-
+    {{-- Navbar --}}
+    <nav class="navbar navbar-expand-md justify-content-md-center" style="padding: 0px; background: #c9c9c9;">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Link 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 3</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 4</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 5</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 6</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link 7</a>
+            </li>
+        </ul>
+    </nav>
 

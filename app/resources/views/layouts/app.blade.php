@@ -9,6 +9,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    <!-- JQuery -->
+    <link rel="stylesheet" href="{{ url('/js/jquery-ui-1.13.2/jquery-ui.min.css') }}">
+    <script src="{{ url('/js/jquery-ui-1.13.2/external/jquery/jquery.js') }}"></script>
+    <script src="{{ url('/js/jquery-ui-1.13.2/jquery-ui.min.js') }}"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -22,11 +27,7 @@
 <body>
     @include('includes.header')
 
-    <div id="app">
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+        @yield('content')
 
     @include('includes.footer')
 </body>
