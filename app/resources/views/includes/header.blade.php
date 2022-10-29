@@ -6,7 +6,7 @@
                 {{-- Logo --}}
                 <div class="col-4 text-center">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img class="navbar-brand-img" src="{{URL('/images/Draculartes-Logotipo-Loja-Draculartes-Artigos-em-impressao-3D.png')}}">
+                        <img class="navbar-brand-img" src="{{URL('/images/Draculartes_horizontal_PNG.png')}}">
                     </a>
                 </div>
 
