@@ -13,17 +13,14 @@
                 {{-- Pesquisar --}}
                 <div class="col-4 text-center" style="padding: 23px 0em 0em 0em;">
                     <div class="input-group mb-3" data-bs-toggle="collapse">
-                        <input type="text" class="form-control" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon2" style="border-radius: 10px 0px 0px 10px;">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" style="border-radius: 0px 10px 10px 0px;"><i class="bi bi-search"></i></button>
-                        </div>
+                        <input type="text" class="form-control search-input" placeholder="Pesquisar" aria-label="Pesquisar" aria-describedby="basic-addon2" >
                     </div>
                 </div>
 
                 {{-- Login --}}
                 <div class="col-4 text-center">
-                    <a class="btn btn-sm btn-outline-secondary" href="#" style="margin: 10px;"><i class="bi bi-person"></i> Login</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="#"><i class="bi bi-cart"></i> Carrinho</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="#"><img alt="Minha conta" class="" src="{{URL('/images/Icon.png')}}"> Minha conta</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="#"><img alt="Minha conta" class="" src="{{URL('/images/Buy.png')}}"> Sacola</a>
                 </div>
 
             </div>
@@ -31,7 +28,7 @@
     </div>
 
     {{-- Navbar --}}
-    <nav class="navbar navbar-expand-md justify-content-md-center" style="padding: 0px; background: #c9c9c9;">
+    <nav class="navbar navbar-expand-md justify-content-md-center" style="padding: 0px; background: #bfbfbf;">
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link active" href="#">Link 1</a>
