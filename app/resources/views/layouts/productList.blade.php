@@ -1,6 +1,10 @@
 
 <div class="container">
 
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Produtos</h1>
+    </div>
+
     <div class="row">
         <div class="col-md-4">
             <div class="card mb-4 box-shadow">
